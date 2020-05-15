@@ -17,14 +17,15 @@ const SmurfList = ({
      isFetching,
      smurfs,
      error,
-     fetchSmurfData
+     fetchSmurfData,
+     postSmurf
 }) => {
 
      const classes = useStyles();
      const [formValues, setFormValues ] = useState({
-          nameFormValue: '',
-          ageFormValue: '',
-          heightFormValue: '',
+          name: '',
+          age: '',
+          height: '',
      })
 
      useEffect(() => {
@@ -37,7 +38,7 @@ const SmurfList = ({
      }, [formValues])
 
      const onChangeHandler = (e) => {
-          setFormValues({ [e.target.name]: e.target.value })
+          setFormValues({ ...formValues, [e.target.name]: e.target.value })
         }
 
      const submitSmurf = e => {
@@ -52,17 +53,17 @@ const SmurfList = ({
                <form>
                     <label>
                     Name:
-            <input type="text" name="name" value={formValues.nameFormValue} onChange={onChangeHandler} />
+            <input type="text" name="name" value={formValues.name} onChange={onChangeHandler} />
                     </label>
 
                     <label>
                     Age:
-            <input type="text" name="age" value={formValues.ageFormValue} onChange={onChangeHandler} />
+            <input type="text" name="age" value={formValues.age} onChange={onChangeHandler} />
                     </label>
 
                     <label>
                     Height:
-            <input type="text" name="height" value={formValues.heightFormValue} onChange={onChangeHandler} />
+            <input type="text" name="height" value={formValues.height} onChange={onChangeHandler} />
                     </label>
 
                </form>
