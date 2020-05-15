@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
-import { fetchSmurfData } from '../store/actions'
+import { fetchSmurfData, postSmurf } from '../store/actions'
 import Smurf from './Smurf'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,10 +8,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
      root: {
-       display: 'flex',
-       justifyContent: 'center',
+          display: 'flex',
+          justifyContent: 'center',
      },
-   }));
+}));
 
 const SmurfList = ({
      isFetching,
@@ -21,15 +21,58 @@ const SmurfList = ({
 }) => {
 
      const classes = useStyles();
+     const [formValues, setFormValues ] = useState({
+          nameFormValue: '',
+          ageFormValue: '',
+          heightFormValue: '',
+     })
 
      useEffect(() => {
           fetchSmurfData()
      }, [fetchSmurfData])
 
+     useEffect(() => {
+          setFormValues(formValues)
+          console.log(formValues)
+     }, [formValues])
+
+     const onChangeHandler = (e) => {
+          setFormValues({ [e.target.name]: e.target.value })
+        }
+
+     const submitSmurf = e => {
+          e.preventDefault()
+          postSmurf(formValues)
+     }
+
      return (
           <div>
+               <h2>Welcome to Smurf Village</h2>
+
+               <form>
+                    <label>
+                    Name:
+            <input type="text" name="name" value={formValues.nameFormValue} onChange={onChangeHandler} />
+                    </label>
+
+                    <label>
+                    Age:
+            <input type="text" name="age" value={formValues.ageFormValue} onChange={onChangeHandler} />
+                    </label>
+
+                    <label>
+                    Height:
+            <input type="text" name="height" value={formValues.heightFormValue} onChange={onChangeHandler} />
+                    </label>
+
+               </form>
+               <button 
+                    onClick={submitSmurf}
+               className="btn btn-default">Submit</button>
+
+
                {
-                    isFetching && 
+                    isFetching &&
                     <div className={classes.root}>
                          <CircularProgress color="secondary" />
                     </div>
@@ -56,5 +99,5 @@ const mapStateToProps = state => {
 
 export default connect(
      mapStateToProps,
-     { fetchSmurfData }
+     { fetchSmurfData, postSmurf }
 )(SmurfList)
