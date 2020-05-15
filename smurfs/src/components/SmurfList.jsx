@@ -35,7 +35,7 @@ const SmurfList = ({
 
      useEffect(() => {
           setFormValues(formValues)
-          console.log(formValues)
+          // console.log(formValues)
      }, [formValues])
 
      const onChangeHandler = (e) => {
