@@ -97,7 +97,13 @@ API call is successful.
 -  [ ] What is your favorite state management system you've learned and this
        sprint? Please explain why!
 
-       I think Redux is clearly the most powerful, but it takes a while to set up and can be quite difficult to understand when first learning the concepts/syntax. Context API is much more simple to set up and get working, but it isn’t quite as universal as using a Redux store. If I had to pick a favorite it’s Redux, because once I get more experienced using it and getting it set up quickly, I can see how it’s really nice to have all of the application state in one nice place off to the side.
+I think Redux is clearly the most powerful, but it takes a while to set up and
+can be quite difficult to understand when first learning the concepts/syntax.
+Context API is much more simple to set up and get working, but it isn’t quite as
+universal as using a Redux store. If I had to pick a favorite it’s Redux,
+because once I get more experienced using it and getting it set up quickly, I
+can see how it’s really nice to have all of the application state in one nice
+place off to the side.
 
 ## Project Set Up
 
