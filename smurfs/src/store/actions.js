@@ -4,6 +4,8 @@ export const FETCH_SMURF_DATA_START = 'FETCH_SMURF_DATA_START'
 export const FETCH_SMURF_DATA_SUCCESS = 'FETCH_SMURF_DATA_SUCCESS'
 export const FETCH_SMURF_DATA_FAILURE = 'FETCH_SMURF_DATA_FAILURE'
 export const POST_SMURF = 'POST_SMURF'
+export const DELETE_SMURF = 'DELETE_SMURF'
+export const DELETE_SMURF_START = 'DELETE_SMURF_START'
 
 
 
@@ -31,4 +33,19 @@ export const postSmurf = values => dispatch => {
                const postSmurfAction = { type: POST_SMURF, payload: response.data }
                dispatch(postSmurfAction)
           })
+}
+
+export const deleteSmurf = (id) => {
+     return dispatch => {
+          dispatch({ type: DELETE_SMURF_START })
+               axios
+               .delete(`${smurfUrl}/${id}`)
+               .then(response => {
+                    console.log(response.data)
+                    dispatch({ type: DELETE_SMURF, payload: response.data })
+          })
+               .catch(err => {
+                    console.log(err)
+               })
+     }
 }

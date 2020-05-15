@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
-import { fetchSmurfData, postSmurf } from '../store/actions'
+import { fetchSmurfData, postSmurf, deleteSmurf } from '../store/actions'
 import Smurf from './Smurf'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,7 +30,8 @@ const SmurfList = ({
 
      useEffect(() => {
           fetchSmurfData()
-     }, [fetchSmurfData])
+     }, [ fetchSmurfData, deleteSmurf])
+
 
      useEffect(() => {
           setFormValues(formValues)
@@ -100,5 +101,5 @@ const mapStateToProps = state => {
 
 export default connect(
      mapStateToProps,
-     { fetchSmurfData, postSmurf }
+     { fetchSmurfData, postSmurf, deleteSmurf }
 )(SmurfList)
