@@ -1,77 +1,165 @@
 # Sprint Challenge: State Management - Smurfs
 
-This challenge allows you to practice the concepts and techniques learned over the past Sprint and apply them in a concrete project. This Sprint explored the context API, the reducer pattern, and Redux. In your challenge for this Sprint, you will demonstrate proficiency by creating an application that uses ReactJS to consume live data retrieved from the World Wide Web.
+This challenge allows you to practice the concepts and techniques learned over
+the past Sprint and apply them in a concrete project. This Sprint explored the
+context API, the reducer pattern, and Redux. In your challenge for this Sprint,
+you will demonstrate proficiency by creating an application that uses ReactJS to
+consume live data retrieved from the World Wide Web.
 
-**Read these instructions carefully. Understand exactly what is expected _before_ starting this Sprint Challenge.**
+**Read these instructions carefully. Understand exactly what is expected
+_before_ starting this Sprint Challenge.**
 
-This is an individual assessment. All work must be your own. Your challenge score is a measure of your ability to work independently using the material covered through this sprint. You need to demonstrate proficiency in the concepts and objectives introduced and practiced in preceding days.
+This is an individual assessment. All work must be your own. Your challenge
+score is a measure of your ability to work independently using the material
+covered through this sprint. You need to demonstrate proficiency in the concepts
+and objectives introduced and practiced in preceding days.
 
-You are not allowed to collaborate during the Sprint Challenge. However, you are encouraged to follow the twenty-minute rule and seek support from your PM and Instructor in your cohort help channel on Slack. Your work reflects your proficiency throughout State Management and your command of the concepts and techniques in the the context API, the reducer pattern, and Redux.
+You are not allowed to collaborate during the Sprint Challenge. However, you are
+encouraged to follow the twenty-minute rule and seek support from your PM and
+Instructor in your cohort help channel on Slack. Your work reflects your
+proficiency throughout State Management and your command of the concepts and
+techniques in the the context API, the reducer pattern, and Redux.
 
 You have three hours to complete this challenge. Plan your time accordingly.
 
 ## Commits
 
-Commit your code regularly and meaningfully. This helps both you (in case you ever need to return to old code for any number of reasons and your project manager).
+Commit your code regularly and meaningfully. This helps both you (in case you
+ever need to return to old code for any number of reasons and your project
+manager).
 
 ## Description
 
-In this challenge, you are to build a Smurfs village utilizing context or Redux as your state management. Build this challenge from the ground up using what you have learned about state management.
+In this challenge, you are to build a Smurfs village utilizing context or Redux
+as your state management. Build this challenge from the ground up using what you
+have learned about state management.
 
 ## Self-Study/Essay Questions
 
-Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
+Demonstrate your understanding of this Sprint's concepts by answering the
+following free-form questions. Edit this document to include your answers after
+each question. Make sure to leave a blank line above and below your answer so it
+is clear and easy to read by your project manager.
 
-- [ ] What problem does the context API help solve?
-- [ ] In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
-- [ ] What is the difference between Application state and Component state? When would be a good time to use one over the other?
-- [ ] Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
-- [ ] What is your favorite state management system you've learned and this sprint? Please explain why!
+-  [ ] What problem does the context API help solve?
+
+Context API helps eliminate the problem of prop-drilling. Where in React
+components, the props need to be passed down multiple levels to actually be
+consumed by the desired component. By keeping state in a much more centralized
+context, we can share values between components without having to explicitly
+pass a prop through every level of the tree.
+
+-  [ ] In your own words, describe `actions`, `reducers` and the `store` and
+       their role in Redux. What does each piece do? Why is the store known as a
+       'single source of truth' in a redux application?
+
+Actions: allow us to modify state in the Redux store, which is otherwise
+immutable. They contain a type which is passed over to the reduce (ex:
+TOGGLE_BUTTON) and can also contain a payload or piece of information that gets
+passed along with the action. Actions being passed is called dispatching.
+
+Reducers: functions that take in the state and an action. They often contain
+switch statements where the cases are the actions that have been dispatched in
+from the actions. They are used to copy over the current state, and manipulate
+the data however it needs to be changed while maintaining the principles of
+immutability. They then can pass over the new state to the store.
+
+Store: the place where the current state of the entire application lives. As
+long as a component is connected to the store via connect and mapStateToProps,
+any component can gain access to the centralized state. This is why it’s
+considered the single source of truth, because any change to state that occurs
+at the component level is stored and managed within the store for the rest of
+the app to reference if needed.
+
+-  [ ] What is the difference between Application state and Component state?
+       When would be a good time to use one over the other?
+
+Component state can only be passed in one direction: down to its children via
+props. If state changes deep down in a component tree, it is quite difficult for
+the rest of the application to read. It is very simple and easy to set up for
+small applications where having an entire global state store isn’t completely
+necessary. It can also be a bit more secure, as certain components don’t have
+access to state that is totally irrelevant.
+
+Application state is global to the app. It is held in the store and can be
+accessed by any component that is connected. It effectively eliminates the need
+for passing props. It also maintains the current state of the app everywhere,
+whether or not the component that is affected is currently mounted.
+
+-  [ ] Describe `redux-thunk`, what does it allow us to do? How does it change
+       our `action-creators`?
+
+Reducers are synchronous, and using middleware allows us to manipulate our state
+and actions asynchronously. Thunk is a separate node package that allows us to
+make API calls directly in action creators, then dispatch an action after the
+API call is successful.
+
+-  [ ] What is your favorite state management system you've learned and this
+       sprint? Please explain why!
+
+       I think Redux is clearly the most powerful, but it takes a while to set up and can be quite difficult to understand when first learning the concepts/syntax. Context API is much more simple to set up and get working, but it isn’t quite as universal as using a Redux store. If I had to pick a favorite it’s Redux, because once I get more experienced using it and getting it set up quickly, I can see how it’s really nice to have all of the application state in one nice place off to the side.
 
 ## Project Set Up
 
 Follow these steps to set up your project:
 
-- [ ] `fork & clone` this repository.
-- [ ] `cd` into the forked copy of this repository.
-- [ ] **RUN** `npm install` to retrieve all `server-side` the dependencies.
-- [ ] **RUN** `npm start` to get your API up and running on `http://localhost:3333`. This is the **URL** you're going to need to use within your React app in order to make AJAX requests for data.
-- [ ] After your API is up and running, you can open chrome and type in `http://localhost:3333/smurfs`. You should see an array with one smurf in it returned to you. This is an array that your **API** will be using to store our Smurf Data.
-- [ ] **LOOK** at your `smurfs` directory and notice it's just a plain ol' React App that we've built using `create-react-app`.
-- [ ] **Open** `src/index.js` to make sure that your app is ready to roll with the proper middleware.
-- [ ] **cd** into `smurfs` and run `npm install` to retrieve the client side dependencies.
-- [ ] **RUN** `npm start` to fire up your React application. There ought to be a pretty little message awaiting you welcoming you to the app. `Follow` the prompting.
+-  [ ] `fork & clone` this repository.
+-  [ ] `cd` into the forked copy of this repository.
+-  [ ] **RUN** `npm install` to retrieve all `server-side` the dependencies.
+-  [ ] **RUN** `npm start` to get your API up and running on
+       `http://localhost:3333`. This is the **URL** you're going to need to use
+       within your React app in order to make AJAX requests for data.
+-  [ ] After your API is up and running, you can open chrome and type in
+       `http://localhost:3333/smurfs`. You should see an array with one smurf in
+       it returned to you. This is an array that your **API** will be using to
+       store our Smurf Data.
+-  [ ] **LOOK** at your `smurfs` directory and notice it's just a plain ol'
+       React App that we've built using `create-react-app`.
+-  [ ] **Open** `src/index.js` to make sure that your app is ready to roll with
+       the proper middleware.
+-  [ ] **cd** into `smurfs` and run `npm install` to retrieve the client side
+       dependencies.
+-  [ ] **RUN** `npm start` to fire up your React application. There ought to be
+       a pretty little message awaiting you welcoming you to the app. `Follow`
+       the prompting.
 
-**LOOK** at all the files you've been given for this project. One important file to note is `server.js`. This file contains an **API** that you are going to be interfacing with. Below is documentation on how to interact with the **API**.
+**LOOK** at all the files you've been given for this project. One important file
+to note is `server.js`. This file contains an **API** that you are going to be
+interfacing with. Below is documentation on how to interact with the **API**.
 
 ## Minimum Viable Product
 
-- [ ] Plan and implement how you are going to manage your state for your application
-- [ ] You _must_ use either context or Redux as your state management system
-- [ ] Once you have planned out your state management system, fetch data from the smurf server and display the data it returns
-- [ ] Add a form to collect info for a new smurf, and make a POST request to the server to add a new smurf to your village
+-  [ ] Plan and implement how you are going to manage your state for your
+       application
+-  [ ] You _must_ use either context or Redux as your state management system
+-  [ ] Once you have planned out your state management system, fetch data from
+       the smurf server and display the data it returns
+-  [ ] Add a form to collect info for a new smurf, and make a POST request to
+       the server to add a new smurf to your village
 
 ## API documentation
 
 ### GET '/smurfs'
 
-- [ ] Retrieve an array all the Smurfs in the Smurf DB by writing a `GET` to the endpoint `/smurfs`.
-- [ ] Double check that your response from the server is an array of smurfs.
+-  [ ] Retrieve an array all the Smurfs in the Smurf DB by writing a `GET` to
+       the endpoint `/smurfs`.
+-  [ ] Double check that your response from the server is an array of smurfs.
 
 ```js
-[
-  {
-    name: "Brainey",
-    age: 200,
-    height: "5cm",
-    id: 0
-  }
-];
+;[
+	{
+		name: 'Brainey',
+		age: 200,
+		height: '5cm',
+		id: 0,
+	},
+]
 ```
 
 ### POST '/smurfs'
 
-- [ ] Design the functionality to add a smurf to the Smurf DB you'll need all three fields. `name`, `age`, and `height`.
+-  [ ] Design the functionality to add a smurf to the Smurf DB you'll need all
+       three fields. `name`, `age`, and `height`.
 
 Example of the shape of data to be sent to the `POST` endpoint:
 
@@ -83,38 +171,43 @@ Example of the shape of data to be sent to the `POST` endpoint:
 }
 ```
 
-- [ ] Double check to make sure that a smurf is created correctly once your functionality is built out.
+-  [ ] Double check to make sure that a smurf is created correctly once your
+       functionality is built out.
 
-Initially Brainey will be in the array, but it takes more than one smurf to make the village. Be sure to add a few smurfs to populate our smurf village.
+Initially Brainey will be in the array, but it takes more than one smurf to make
+the village. Be sure to add a few smurfs to populate our smurf village.
 
-**HINT** if you are going to be working on Stretch Problem, you'll need to use that unique `id`.
+**HINT** if you are going to be working on Stretch Problem, you'll need to use
+that unique `id`.
 
 Example of object created in Smurf DB:
 
 ```js
-[
-  {
-    name: "Brainey",
-    age: 200,
-    height: "5cm",
-    id: 0
-  },
-  {
-    name: "Sleepy",
-    age: 200,
-    height: "5cm",
-    id: 1
-  }
-];
+;[
+	{
+		name: 'Brainey',
+		age: 200,
+		height: '5cm',
+		id: 0,
+	},
+	{
+		name: 'Sleepy',
+		age: 200,
+		height: '5cm',
+		id: 1,
+	},
+]
 ```
 
 ## STRETCH PROBLEM
 
-The following two endpoints are here for you if you'd like to push yourselves a little further.
+The following two endpoints are here for you if you'd like to push yourselves a
+little further.
 
 ### PUT '/smurfs/123', where 123 is the Id of the smurf you want to modify
 
-- [ ] For this endpoint to work, you'll need an `id` added to the URL, and at least one field to update on the Smurf object. `name` `age` `height`.
+-  [ ] For this endpoint to work, you'll need an `id` added to the URL, and at
+       least one field to update on the Smurf object. `name` `age` `height`.
 
 Example:
 
@@ -143,21 +236,25 @@ output:
 
 ### DELETE '/smurfs/123', where 123 is the Id of the smurf you want to remove
 
-For this endpoint to work, all you need is an id sent up as part of the request url.
+For this endpoint to work, all you need is an id sent up as part of the request
+url.
 
-If your delete worked, you'll get a an array back with all of the smurfs but with your requested smurf removed.
+If your delete worked, you'll get a an array back with all of the smurfs but
+with your requested smurf removed.
 
-- [ ] You don't need any input beyond the url parameter of the smurf, so if we send up a delete request to `/smurfs/123` then you'll remove the smurf by that id.
+-  [ ] You don't need any input beyond the url parameter of the smurf, so if we
+       send up a delete request to `/smurfs/123` then you'll remove the smurf by
+       that id.
 
 Example:
 
 ```js
 output: [
-  {
-    name: "Sleepy",
-    age: 200,
-    height: "5cm",
-    id: 1
-  }
-];
+	{
+		name: 'Sleepy',
+		age: 200,
+		height: '5cm',
+		id: 1,
+	},
+]
 ```
